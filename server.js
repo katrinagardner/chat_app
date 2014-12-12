@@ -55,7 +55,7 @@ server.on("connection", function(ws){
   }
   clients.push(ws);
   clients.forEach(function(client){
-    var servermsg = {name:"server", newMessage:"client connected!", color: "black"};
+    var servermsg = {name:"Server", newMessage:"client connected!", color: "black"};
     var J_servermsg= JSON.stringify(servermsg);
     client.send(J_servermsg);
 
@@ -67,7 +67,7 @@ server.on("connection", function(ws){
       clients.splice(x, 1);
 
       clients.forEach(function(client){
-      var servermsg1 = {name:"server", newMessage:"Oh no, someone left!", color: "black"};
+      var servermsg1 = {name:"Server", newMessage:"Someone just left!", color: "black"};
       var J_servermsg1= JSON.stringify(servermsg1);
       client.send(J_servermsg1);
    })
@@ -80,18 +80,21 @@ server.on("connection", function(ws){
       for(i=0; i<clients.length; i++){
         clients[i].send(msg);
       }
-    //   var badword=JSON.parse(msg);
-    //   var bad= badword.userMessage;
-    //   if(bad === "fuck" || bad === "ass"){
-    //     clients.forEach(function(client){
-    //     var serverword = {name:"server", newMessage:"NO cursing in the chat room", color: "black"};
-    //     var J_serverword= JSON.stringify(serverword);
-    //     client.send(J_serverword);
-    //     console.log("This is bad word.")
-     //
-    //   })
-    //     ws.close();
-    //  }
+
+        var badword=JSON.parse(msg);
+        var bad= badword.newMessage.trim();
+        var badarry=bad.split(" ");
+
+        badarry.forEach(function(word){
+
+        if(word === "fuck" || word === "ass"){
+        var serverword = {name:"server", newMessage:"NO cursing in the chat room", color: "black"};
+        var J_serverword= JSON.stringify(serverword);
+        ws.send(J_serverword);
+        ws.close();
+        console.log("client typed cursing word") // show in the terminal console
+      }
+     })
 
     })
     });
