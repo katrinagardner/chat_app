@@ -50,7 +50,7 @@
 
 //new code
 
-var ws = new WebSocket("ws://katrina.princesspeach:3000"); //ws:katrina.princesspeach.nyc:3000
+var ws = new WebSocket("ws://katrina.princesspeach.nyc:3000"); //ws:katrina.princesspeach.nyc:3000
 
 
 var body = document.querySelector("body");
