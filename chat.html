@@ -1,5 +1,14 @@
 <html>
 
+<head>
+<title> Chat Room </title>
+</head>
+
+<head>
+<link href='http://fonts.googleapis.com/css?family=Crafty+Girls' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Alegreya+Sans+SC' rel='stylesheet' type='text/css'>
+</head>
+
 <body>
 
 <style>
@@ -9,34 +18,42 @@ h1{
 body{
   background-color:#17DFB1;
 }
+h1{
+  text-align:center;
+}
 ul{
   list-style:none;
-  border:2px dotted red;
-  border-raduis:20px;
-  width:50%;
+  border:5px dashed red;
+  width:60%;
+  background-color:#F6D3D3;
+  overflow:scroll;
+  display:block;
+  height:400px;
+  
 }
+
 li{
   font-family:"Crafty Girls";
   font-size:20px;
-
 }
 
 #input{
-  width:250px;
-  height:120px;
+  width:60%;
+  height:150px;
   border:2px solid #DF176D;
-  border-radius:5px;
+  border-radius:20px;
   font-family:"Crafty Girls";
   font-size:20px;
   resize:none;
+
 }
 #button{
   font-family:"Crafty Girls";
   background-color:yellow;
   width:100px;
-  height:40px;
+  height:60px;
   margin-left: 20px;
-  border-radius:5px;
+  border-radius:10px;
   font-size:20px;
   margin-top:100px;
 }
@@ -45,7 +62,7 @@ li{
   <h1> Welcome to the chatroom. Now you can chat with whoever you want.</h1>
   <h1> Watch out the word you are typing in.</h1>
 
-  <textarea type=text placeholder=" text here " id="input"></textarea>
+  <textarea type=text placeholder=" Message: " id="input"></textarea>
 
   <button id="button">Send</button>
 

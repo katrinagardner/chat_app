@@ -50,7 +50,7 @@
 
 //new code
 
-var ws = new WebSocket("ws://katrina.princesspeach.nyc:3000"); //ws:katrina.princesspeach.nyc:3000
+var ws = new WebSocket("ws://katrina.princesspeach.nyc:3000"); //ws://katrina.princesspeach.nyc:3000
 
 
 var body = document.querySelector("body");
@@ -72,6 +72,7 @@ ws.addEventListener("open", function(evt){
       //ul.insertBefore(newli, firstli);
       var ula=document.querySelector("ul");
       ula.appendChild(newli);
+      ula.scrollTop = ula.scrollHeight; // this will make new text show without scroll.
       var textarea=document.querySelector("textarea");
       body.insertBefore(ula,textarea);
     }
