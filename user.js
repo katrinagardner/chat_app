@@ -44,7 +44,26 @@ ws.addEventListener("open", function(evt){
   ws.addEventListener("message", function(evt){
     addText(evt.data);
     //console.log(evt.data);
+
+    //image code
+    var item = JSON.parse(evt.data);
+    var li = document.createElement("li");
+    ul.appendChild(li);
+    input.value = " ";
+
+    var message = item.newMessage;
+    var image = message.split(" ");
+    image.forEach(function(piclink){
+    var length = piclink.length;
+    var end_chars = piclink.charAt(length-3) + piclink.charAt(length-2) + piclink.charAt(length-1)
+    if(end_chars === "gif" || end_chars === "jpg" || end_chars === "bmp" || end_chars === "png"){
+    var img = document.createElement("img");
+    img.src = piclink;
+    li.appendChild(img);
+      };
+    });
   });
+
 
   button.addEventListener("click", function(evt){
     var inputStr = document.querySelector("#input");//can work by using #button as well.
@@ -52,15 +71,6 @@ ws.addEventListener("open", function(evt){
     var info = JSON.stringify(userMessage); //pack the message
     ws.send(info);
     input.value = " ";
-
-//link
-//   var link = document.createElement("a");
-//   var linkStr=document.querySelector("#input");
-//   var userlink = {name: userName, newMessage:linkStr.value, color: userColor};
-//   link.setAttribute("href",userlinks);
-//   var info1 = JSON.stringify(userlink); //pack the message
-//   ws.send(info1);
-//   link.value = " ";
 
   });
 

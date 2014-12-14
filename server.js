@@ -41,7 +41,7 @@ server.on("connection", function(ws){
         var badarry=bad.split(" ");
 
         badarry.forEach(function(word){
-        if(word === "fuck" || word === "ass" || word === "shit"){
+        if(word === "fuck" || word === "ass" || word === "shit" || word === "fucking"){
         var serverword = {name:"server", newMessage:"Watch your language, smartass!", color: "black"};
         var J_serverword= JSON.stringify(serverword);
         ws.send(J_serverword);
