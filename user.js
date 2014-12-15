@@ -5,12 +5,13 @@ body.appendChild(ul);
 var userName = prompt("Please enter your name").trim();
 var userColor = prompt("Type the name of the color for your text");
 
+
 var addText = function(msg){
   var newli = document.createElement("li");
   var mssg = JSON.parse(msg); //unpack the message
   var printMessage = mssg.name + " : " + mssg.newMessage; //after unpack message and print.
   console.log(mssg);
-  var msg=mssg.newMessage;
+  var msg=mssg.newMessage.trim();
   var messageArray=msg.split(" ");
   input.value= " ";
   for (i=0; i< messageArray.length; i++){
@@ -18,9 +19,20 @@ var addText = function(msg){
       messageArray.splice(i,1);
       for(i; i < messageArray.length; i++){
         messageArray[i]=(messageArray[i].toUpperCase());
-        printMessage="<li>" + userName + " : " + messageArray.join(" ") + "</li>";
+        printMessage="<li>" + mssg.name + " : " + messageArray.join(" ") + "</li>";
 
       }
+    }
+    else if(messageArray[i] === "!smile"){
+      messageArray.splice(i,1);
+      tablemsg="(^_^)";
+      printMessage="<li>" + mssg.name + " : " + tablemsg + "</li>";
+    }
+
+    else if(messageArray[i] === "!shock"){
+      messageArray.splice(i,1);
+      tablemsg="(0_0)";
+      printMessage="<li>" + mssg.name + " : " + tablemsg + "</li>";
     }
   }
     newli.style.color = mssg.color;//color for each user.
@@ -66,10 +78,9 @@ ws.addEventListener("open", function(evt){
 
     var firstfour = message.substring(0,5).trim();
     if(firstfour === "http"){
-      console.log("Inside http!");
       var length = message.length;
       var lastthree =  message.substring(length-3,length);
-      if (lastthree === "png" || lastthree === "jpg"){
+      if (lastthree === "png" || lastthree === "jpg" || lastthree === "bmp" || lastthree === "gif"){
         message = "<img src='" + message + "'>";
         }
         else{
