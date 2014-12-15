@@ -39,7 +39,6 @@ server.on("connection", function(ws){
         var badword=JSON.parse(msg);
         var bad= badword.newMessage.trim();
         var badarry=bad.split(" ");
-
         badarry.forEach(function(word){
         if(word === "fuck" || word === "ass" || word === "shit" || word === "fucking"){
         var serverword = {name:"server", newMessage:"Watch your language, smartass!", color: "black"};

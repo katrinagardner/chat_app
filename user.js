@@ -1,4 +1,4 @@
-var ws = new WebSocket("ws://katrina.princesspeach.nyc:3000"); //ws://katrina.princesspeach.nyc:3000
+var ws = new WebSocket("ws://localhost:3000"); //ws://katrina.princesspeach.nyc:3000
 var body = document.querySelector("body");
 var ul = document.createElement("ul");
 body.appendChild(ul);
@@ -10,36 +10,48 @@ var addText = function(msg){
   var mssg = JSON.parse(msg); //unpack the message
   var printMessage = mssg.name + " : " + mssg.newMessage; //after unpack message and print.
   console.log(mssg);
-  newli.style.color = mssg.color;//color for each user.
-  newli.innerHTML = printMessage;
-  var firstli = ul.firstChild;
-  //ul.insertBefore(newli, firstli);
-  var ula=document.querySelector("ul");
-  ula.appendChild(newli);
-  ula.scrollTop = ula.scrollHeight; // this will make new text show without scroll down.
-  var textarea=document.querySelector("textarea");
-  body.insertBefore(ula,textarea);
+  var msg=mssg.newMessage;
+  var messageArray=msg.split(" ");
+  input.value= " ";
+  for (i=0; i< messageArray.length; i++){
+    if(messageArray[i] === "/yell"){
+      messageArray.splice(i,1);
+      for(i; i < messageArray.length; i++){
+        messageArray[i]=(messageArray[i].toUpperCase());
+        printMessage="<li>" + userName + " : " + messageArray.join(" ") + "</li>";
 
+      }
+    }
+  }
+    newli.style.color = mssg.color;//color for each user.
+    newli.innerHTML = printMessage;
+    var firstli = ul.firstChild;
+    //ul.insertBefore(newli, firstli);
+    var ula=document.querySelector("ul");
+    ula.appendChild(newli);
+    ula.scrollTop = ula.scrollHeight; // this will make new text show without scroll down.
+    var textarea=document.querySelector("textarea");
+    body.insertBefore(ula,textarea);
 }
 
 ws.addEventListener("open", function(evt){
 
-      console.log('connected');
-    // var addText = function(msg){
-    //   var newli = document.createElement("li");
-    //   var mssg = JSON.parse(msg); //unpack the message
-    //   var printMessage = mssg.name + ": " + mssg.newMessage; //after unpack message and print.
-    //   console.log(mssg);
-    //   newli.style.color = mssg.color;//color for each user.
-    //   newli.innerHTML = printMessage;
-    //   var firstli = ul.firstChild;
-    //   //ul.insertBefore(newli, firstli);
-    //   var ula=document.querySelector("ul");
-    //   ula.appendChild(newli);
-    //   ula.scrollTop = ula.scrollHeight; // this will make new text show without scroll.
-    //   var textarea=document.querySelector("textarea");
-    //   body.insertBefore(ula,textarea);
-    // }
+  console.log('connected');
+  // var addText = function(msg){
+  //   var newli = document.createElement("li");
+  //   var mssg = JSON.parse(msg); //unpack the message
+  //   var printMessage = mssg.name + ": " + mssg.newMessage; //after unpack message and print.
+  //   console.log(mssg);
+  //   newli.style.color = mssg.color;//color for each user.
+  //   newli.innerHTML = printMessage;
+  //   var firstli = ul.firstChild;
+  //   //ul.insertBefore(newli, firstli);
+  //   var ula=document.querySelector("ul");
+  //   ula.appendChild(newli);
+  //   ula.scrollTop = ula.scrollHeight; // this will make new text show without scroll.
+  //   var textarea=document.querySelector("textarea");
+  //   body.insertBefore(ula,textarea);
+  // }
 
   ws.addEventListener("message", function(evt){
     addText(evt.data);
@@ -54,14 +66,15 @@ ws.addEventListener("open", function(evt){
     var message = item.newMessage;
     var image = message.split(" ");
     image.forEach(function(piclink){
-    var length = piclink.length;
-    var end_chars = piclink.charAt(length-3) + piclink.charAt(length-2) + piclink.charAt(length-1)
-    if(end_chars === "gif" || end_chars === "jpg" || end_chars === "bmp" || end_chars === "png"){
-    var img = document.createElement("img");
-    img.src = piclink;
-    li.appendChild(img);
+      var length = piclink.length;
+      var end_chars = piclink.charAt(length-3) + piclink.charAt(length-2) + piclink.charAt(length-1)
+      if(end_chars === "gif" || end_chars === "jpg" || end_chars === "bmp" || end_chars === "png"){
+        var img = document.createElement("img");
+        img.src = piclink;
+        li.appendChild(img);
       };
     });
+
   });
 
 
@@ -84,4 +97,4 @@ ws.addEventListener("open", function(evt){
       input.value = " ";
     }
   });
-  });
+});
