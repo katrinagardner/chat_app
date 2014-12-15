@@ -10,7 +10,7 @@ server.on("connection", function(ws){
   }
   clients.push(ws);
   clients.forEach(function(client){
-    var servermsg = {name:"Server", newMessage:"Someone just connected!", color: "black"};
+    var servermsg = {name:"Server", newMessage:" Client connected!", color: "black"};
     var J_servermsg= JSON.stringify(servermsg);
     client.send(J_servermsg);
 

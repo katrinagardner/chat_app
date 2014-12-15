@@ -1,4 +1,4 @@
-var ws = new WebSocket("ws://katrina.princesspeach.nyc:3000"); //ws://katrina.princesspeach.nyc:3000
+var ws = new WebSocket("ws://localhost:3000"); //ws://katrina.princesspeach.nyc:3000
 var body = document.querySelector("body");
 var ul = document.createElement("ul");
 body.appendChild(ul);
@@ -55,25 +55,41 @@ ws.addEventListener("open", function(evt){
 
   ws.addEventListener("message", function(evt){
     addText(evt.data);
-    //console.log(evt.data);
 
-    //image code
+    //image/hyperlink code
     var item = JSON.parse(evt.data);
     var li = document.createElement("li");
     ul.appendChild(li);
     input.value = " ";
 
     var message = item.newMessage;
-    var image = message.split(" ");
-    image.forEach(function(piclink){
-      var length = piclink.length;
-      var end_chars = piclink.charAt(length-3) + piclink.charAt(length-2) + piclink.charAt(length-1)
-      if(end_chars === "gif" || end_chars === "jpg" || end_chars === "bmp" || end_chars === "png"){
-        var img = document.createElement("img");
-        img.src = piclink;
-        li.appendChild(img);
-      };
-    });
+
+    var firstfour = message.substring(0,5).trim();
+    if(firstfour === "http"){
+      console.log("Inside http!");
+      var length = message.length;
+      var lastthree =  message.substring(length-3,length);
+      if (lastthree === "png" || lastthree === "jpg"){
+        message = "<img src='" + message + "'>";
+        }
+        else{
+          message = "<a href='" + message + "'>" + message + "</a>";
+        }
+      console.log(message);
+      li.innerHTML=message;
+
+    }
+    // var image = message.split(" ");
+    // image.forEach(function(piclink){
+    //   var length = piclink.length;
+    //   var end_chars = piclink.charAt(length-3) + piclink.charAt(length-2) + piclink.charAt(length-1)
+    //   if(end_chars === "gif" || end_chars === "jpg" || end_chars === "bmp" || end_chars === "png"){
+    //     var img = document.createElement("img");
+    //     img.src = piclink;
+    //     li.appendChild(img);
+    //   };
+    // });
+
 
   });
 
